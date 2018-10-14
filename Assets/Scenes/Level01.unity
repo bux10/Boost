@@ -294,7 +294,7 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 516c276bfea258048835a610ed4de5e9, type: 2}
   m_IsPrefabAsset: 0
---- !u!1001 &1299036113
+--- !u!1001 &1451671530
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -333,10 +333,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 1454423726718866, guid: b1ea18cf8441f9246a904d01a3fb3ec8, type: 2}
-      propertyPath: m_Name
-      value: PixelShip
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1ea18cf8441f9246a904d01a3fb3ec8, type: 2}
   m_IsPrefabAsset: 0
@@ -349,15 +345,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4991522772418598, guid: 1977434e83551c7488b76a8594135076, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -0.12672976
+      value: -0.0015500709
       objectReference: {fileID: 0}
     - target: {fileID: 4991522772418598, guid: 1977434e83551c7488b76a8594135076, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1.98
+      value: 0.74775696
       objectReference: {fileID: 0}
     - target: {fileID: 4991522772418598, guid: 1977434e83551c7488b76a8594135076, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -5.4190145
+      value: -66.36194
       objectReference: {fileID: 0}
     - target: {fileID: 4991522772418598, guid: 1977434e83551c7488b76a8594135076, type: 2}
       propertyPath: m_LocalRotation.x

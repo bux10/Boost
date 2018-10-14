@@ -39,8 +39,9 @@ GameObject:
   - component: {fileID: 4103788668118644}
   - component: {fileID: 54861758373075666}
   - component: {fileID: 114748656135649354}
+  - component: {fileID: 82473669390220658}
   m_Layer: 0
-  m_Name: PixelShip 1
+  m_Name: PixelShip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -179,7 +180,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1925433418255960}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.004999995, y: 0.4920001, z: 0}
+  m_LocalPosition: {x: -0.004999995, y: 0.37499994, z: 0}
   m_LocalScale: {x: 0.16340403, y: 0.11524753, z: 0.16340403}
   m_Children: []
   m_Father: {fileID: 4103788668118644}
@@ -192,7 +193,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1655694097555588}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.004999995, y: 0.36300015, z: 0}
+  m_LocalPosition: {x: -0.004999995, y: 0.246, z: 0}
   m_LocalScale: {x: 0.22847037, y: 0.23456073, z: 0.22847037}
   m_Children: []
   m_Father: {fileID: 4103788668118644}
@@ -205,7 +206,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1848083762940506}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.13890001, y: -0.2809999, z: -0.1424}
+  m_LocalPosition: {x: 0.13890001, y: -0.39800006, z: -0.1424}
   m_LocalScale: {x: 0.08133, y: 0.17998, z: 0.08133}
   m_Children: []
   m_Father: {fileID: 4103788668118644}
@@ -218,7 +219,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1454423726718866}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.633, z: 0}
+  m_LocalPosition: {x: 0, y: 0.746, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4646445593115466}
@@ -239,7 +240,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1532855547067748}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.004999995, y: 0.5695001, z: 0}
+  m_LocalPosition: {x: -0.004999995, y: 0.45249993, z: 0}
   m_LocalScale: {x: 0.08793043, y: 0.06201948, z: 0.08793043}
   m_Children: []
   m_Father: {fileID: 4103788668118644}
@@ -252,7 +253,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1894814346966602}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.14119999, y: -0.2809999, z: -0.1417}
+  m_LocalPosition: {x: -0.14119999, y: -0.39800006, z: -0.1417}
   m_LocalScale: {x: 0.08133, y: 0.17998, z: 0.08133}
   m_Children: []
   m_Father: {fileID: 4103788668118644}
@@ -265,7 +266,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1509299630168652}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.004999995, y: 0.04000008, z: 0}
+  m_LocalPosition: {x: -0.004999995, y: -0.07700008, z: 0}
   m_LocalScale: {x: 0.33606383, y: 0.70772934, z: 0.33606383}
   m_Children: []
   m_Father: {fileID: 4103788668118644}
@@ -278,7 +279,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1454469842178340}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.139, y: -0.281, z: 0.1406}
+  m_LocalPosition: {x: 0.139, y: -0.39800015, z: 0.1406}
   m_LocalScale: {x: 0.08132908, y: 0.17997761, z: 0.08132908}
   m_Children: []
   m_Father: {fileID: 4103788668118644}
@@ -291,7 +292,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1134612713256252}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.14209999, y: -0.2809999, z: 0.1412}
+  m_LocalPosition: {x: -0.14209999, y: -0.39800006, z: 0.1412}
   m_LocalScale: {x: 0.08133, y: 0.17998, z: 0.08133}
   m_Children: []
   m_Father: {fileID: 4103788668118644}
@@ -744,6 +745,101 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!82 &82473669390220658
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1454423726718866}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: dbfa1db67c5ccfe4c819f0c50e74933a, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 0.8
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &114748656135649354
 MonoBehaviour:
   m_ObjectHideFlags: 1
