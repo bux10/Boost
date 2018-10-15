@@ -27,12 +27,15 @@ public class Rocket : MonoBehaviour {
         {
             case "Friendly":
                 print("Safe");
+                transform.rotation = new Quaternion(0, 0, 0, 0);
                 break;
             case "Fuel":
                 print("Re-Fueling");
+                transform.rotation = new Quaternion(0, 0, 0, 0);
                 break;
             default:
                 print("DEAD!");
+                transform.rotation = new Quaternion(0, 0, 0, 0);
                 transform.position = new Vector3(-10, 1, 0);
                 break;
         }
@@ -76,7 +79,8 @@ public class Rocket : MonoBehaviour {
 
         if(Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D)){
             rb.freezeRotation = false;
-            //rb.constraints = RigidbodyConstraints.FreezeRotationX;
+            rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezePositionZ;
+
             //rb.constraints = RigidbodyConstraints.FreezeRotationY;
         }
         //rb.freezeRotation = false; //return control to phsics engine
