@@ -40,25 +40,28 @@ public class Rocket : MonoBehaviour {
 
     private void Rotate()
     {
-        rb.freezeRotation = true; //take manual control of rotation
-        
+        //rb.freezeRotation = true; //take manual control of rotation
+
         float rotationThisFrame = rcsThrust * Time.deltaTime;
 
         if (Input.GetKey(KeyCode.A))
         {
+            rb.freezeRotation = true; //take manual control of rotation
             transform.Rotate(Vector3.forward * rotationThisFrame);
         }
         else
         if (Input.GetKey(KeyCode.D))
         {
+            rb.freezeRotation = true; //take manual control of rotation
             transform.Rotate(-Vector3.forward * rotationThisFrame);
         }
 
-        rb.freezeRotation = false; //return control to phsics engine
+        if(Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D)){
+            rb.freezeRotation = false;
+            //rb.constraints = RigidbodyConstraints.FreezeRotationX;
+            //rb.constraints = RigidbodyConstraints.FreezeRotationY;
+        }
+        //rb.freezeRotation = false; //return control to phsics engine
     }
 
-    void FixedUpdate()
-    {
-        
-    }
 }
