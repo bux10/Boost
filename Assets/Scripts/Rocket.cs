@@ -7,7 +7,7 @@ public class Rocket : MonoBehaviour {
 
 
     [SerializeField, Range(100,300)] float rcsThrust = 100f;
-    [SerializeField, Range(500,1000)] float mainThrust = 100f;
+    [SerializeField, Range(1000,5000)] float mainThrust = 1000f;
 
     // Use this for initialization
     void Start () {
@@ -20,6 +20,7 @@ public class Rocket : MonoBehaviour {
         Thrust();
         Rotate();
     }
+
 
     void OnCollisionEnter(Collision collision)
     {
@@ -36,7 +37,7 @@ public class Rocket : MonoBehaviour {
             default:
                 print("DEAD!");
                 transform.rotation = new Quaternion(0, 0, 0, 0);
-                transform.position = new Vector3(-10, 1, 0);
+                transform.position = new Vector3(-10.3f, 3.177f, 0);
                 break;
         }
     }
