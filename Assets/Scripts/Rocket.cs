@@ -1,9 +1,18 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Rocket : MonoBehaviour {
 
+    //TODO: Fix lighting bug when switching levels
+
+
     Rigidbody rb;
     AudioSource sound;
+
+    enum State { ALIVE, DYING, TRANSCENDING, REFUELING, RESCUING };
+
+    [SerializeField] State state = State.ALIVE;
 
 
     [SerializeField, Range(100,300)] float rcsThrust = 100f;
@@ -17,29 +26,52 @@ public class Rocket : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Thrust();
-        Rotate();
+        if(state != State.DYING && state != State.TRANSCENDING)
+        {
+            Thrust();
+            Rotate();
+        }
     }
 
 
     void OnCollisionEnter(Collision collision)
     {
-        switch (collision.gameObject.tag)
+        if(state != State.DYING && state != State.TRANSCENDING)
         {
-            case "Friendly":
-                print("Safe");
-                transform.rotation = new Quaternion(0, 0, 0, 0);
-                break;
-            case "Fuel":
-                print("Re-Fueling");
-                transform.rotation = new Quaternion(0, 0, 0, 0);
-                break;
-            default:
-                print("DEAD!");
-                transform.rotation = new Quaternion(0, 0, 0, 0);
-                transform.position = new Vector3(-10.3f, 3.177f, 0);
-                break;
+            switch (collision.gameObject.tag)
+            {
+                case "Finish":
+                    state = State.TRANSCENDING;
+                    Invoke("LoadNextLevel", 1.5f);
+                    break;
+                case "Friendly":
+                    print("Safe");
+                    transform.rotation = new Quaternion(0, 0, 0, 0);
+                    break;
+                case "Fuel":
+                    transform.rotation = new Quaternion(0, 0, 0, 0);
+                    state = State.REFUELING;
+                    break;
+                case "Rescue":
+                    transform.rotation = new Quaternion(0, 0, 0, 0);
+                    state = State.RESCUING;
+                    break;
+                default:
+                    Invoke("RestartFromBegining", 1.5f);
+                    state = State.DYING;
+                    break;
+            }
         }
+    }
+
+    private void RestartFromBegining()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    private void LoadNextLevel()
+    {
+        SceneManager.LoadScene(1); //TODO Allow for more than 2 levels
     }
 
     private void Thrust()
