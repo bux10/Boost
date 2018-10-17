@@ -26,7 +26,7 @@ public class Rocket : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(state != State.DYING && state != State.TRANSCENDING)
+        if(state != State.DYING)
         {
             Thrust();
             Rotate();
@@ -59,6 +59,10 @@ public class Rocket : MonoBehaviour {
                 default:
                     Invoke("RestartFromBegining", 1.5f);
                     state = State.DYING;
+                    if (sound.isPlaying)
+                    {
+                        sound.Stop();
+                    }
                     break;
             }
         }
