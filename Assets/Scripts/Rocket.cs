@@ -2,34 +2,40 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Rocket : MonoBehaviour {
-
-    //TODO: Fix lighting bug when switching levels
-
+public class Rocket : MonoBehaviour
+{
 
     Rigidbody rb;
     AudioSource sound;
 
     enum State { ALIVE, DYING, TRANSCENDING, REFUELING, RESCUING };
 
-    [SerializeField] State state = State.ALIVE;
+    State state = State.ALIVE;
 
-
+    //Thrust
     [SerializeField, Range(100,300)] float rcsThrust = 100f;
     [SerializeField, Range(1000,5000)] float mainThrust = 1000f;
 
+    //Sounds
+    [SerializeField] AudioClip mainEngine;
+    [SerializeField] AudioClip successSound;
+    [SerializeField] AudioClip deathExplosion;
+
+
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
         rb = GetComponent<Rigidbody>();
         sound = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
         if(state != State.DYING)
         {
-            Thrust();
-            Rotate();
+            RespondToThrustInput();
+            RespondToRotationInput();
         }
     }
 
@@ -41,11 +47,9 @@ public class Rocket : MonoBehaviour {
             switch (collision.gameObject.tag)
             {
                 case "Finish":
-                    state = State.TRANSCENDING;
-                    Invoke("LoadNextLevel", 1.5f);
+                    StartSuccessSequence();
                     break;
                 case "Friendly":
-                    print("Safe");
                     transform.rotation = new Quaternion(0, 0, 0, 0);
                     break;
                 case "Fuel":
@@ -57,15 +61,26 @@ public class Rocket : MonoBehaviour {
                     state = State.RESCUING;
                     break;
                 default:
-                    Invoke("RestartFromBegining", 1.5f);
-                    state = State.DYING;
-                    if (sound.isPlaying)
-                    {
-                        sound.Stop();
-                    }
+                    StartDeathSequence();
                     break;
             }
         }
+    }
+
+    private void StartSuccessSequence()
+    {
+        state = State.TRANSCENDING;
+        sound.Stop();
+        sound.PlayOneShot(successSound);
+        Invoke("LoadNextLevel", 1.5f);
+    }
+
+    private void StartDeathSequence()
+    {
+        state = State.DYING;
+        sound.Stop();
+        sound.PlayOneShot(deathExplosion);
+        Invoke("RestartFromBegining", 1.5f);
     }
 
     private void RestartFromBegining()
@@ -78,49 +93,59 @@ public class Rocket : MonoBehaviour {
         SceneManager.LoadScene(1); //TODO Allow for more than 2 levels
     }
 
-    private void Thrust()
+    private void RespondToThrustInput()
     {
         float thrustThisFrame = mainThrust * Time.deltaTime;
 
         if (Input.GetKey(KeyCode.Space))
         {
-            rb.AddRelativeForce(Vector3.up * thrustThisFrame);
-            if (!sound.isPlaying)
-            {
-                sound.Play();
-            }
+            ApplyThrust(thrustThisFrame);
         }
-        else
+        else if (Input.GetKeyUp(KeyCode.Space))
         {
             sound.Stop();
         }
     }
 
-    private void Rotate()
+    private void RespondToRotationInput()
     {
-        //rb.freezeRotation = true; //take manual control of rotation
 
         float rotationThisFrame = rcsThrust * Time.deltaTime;
 
         if (Input.GetKey(KeyCode.A))
         {
-            rb.freezeRotation = true; //take manual control of rotation
-            transform.Rotate(Vector3.forward * rotationThisFrame);
+            ApplyRotation(rotationThisFrame);
         }
         else
         if (Input.GetKey(KeyCode.D))
         {
-            rb.freezeRotation = true; //take manual control of rotation
-            transform.Rotate(-Vector3.forward * rotationThisFrame);
+            ApplyRotation(-rotationThisFrame);
         }
 
-        if(Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D)){
+        if(Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+        {
             rb.freezeRotation = false;
-            rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezePositionZ;
-
-            //rb.constraints = RigidbodyConstraints.FreezeRotationY;
+            SetShipConstraints();
         }
-        //rb.freezeRotation = false; //return control to phsics engine
     }
 
+    private void ApplyThrust(float thrustThisFrame)
+    {
+        rb.AddRelativeForce(Vector3.up * thrustThisFrame);
+        if (!sound.isPlaying)
+        {
+            sound.PlayOneShot(mainEngine);
+        }
+    }
+
+    private void ApplyRotation(float rotationThisFrame)
+    {
+        rb.freezeRotation = true; //take manual control of rotation
+        transform.Rotate(Vector3.forward * rotationThisFrame);
+    }
+
+    private void SetShipConstraints()
+    {
+        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezePositionZ;
+    }
 }
