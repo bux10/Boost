@@ -881,6 +881,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a767f40d415efb542b01227e55db415f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rcsThrust: 100
+  mainThrust: 1000
+  mainEngine: {fileID: 0}
+  successSound: {fileID: 0}
+  deathExplosion: {fileID: 0}
+  thrustPS: {fileID: 0}
+  explosionPS: {fileID: 0}
+  successPS: {fileID: 0}
 --- !u!135 &135553813635983308
 SphereCollider:
   m_ObjectHideFlags: 1
