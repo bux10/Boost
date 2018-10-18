@@ -6,10 +6,8 @@ using UnityEngine;
 public class Oscillator : MonoBehaviour {
 
     [SerializeField] Vector3 movementVector = new Vector3(10f,10f,10f);
-    //[SerializeField] float period = 2f;
-
-
-    [Range(2,10), SerializeField] float period;
+    [Range(2,10), SerializeField] float period = 2;
+    [Range(0, 1), SerializeField] float movementFactor;
 
     Vector3 startingPos;
     Vector3 offset;
@@ -17,7 +15,6 @@ public class Oscillator : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         startingPos = transform.position;
-        period = 5f;
 	}
 	
 	// Update is called once per frame
@@ -28,7 +25,9 @@ public class Oscillator : MonoBehaviour {
         const float tau = Mathf.PI * 2f; //about 6.28
         float rawSinWave = Mathf.Sin(cycles * tau);
 
-        offset = movementVector * rawSinWave;
+        movementFactor = rawSinWave / 2f + 0.5f;
+
+        offset = movementVector * movementFactor;
         transform.position = startingPos + offset;
 
     }

@@ -26,8 +26,6 @@ public class Rocket : MonoBehaviour
     [SerializeField] ParticleSystem explosionPS;
     [SerializeField] ParticleSystem successPS;
 
-
-
     // Use this for initialization
     void Start ()
     {
@@ -45,6 +43,61 @@ public class Rocket : MonoBehaviour
         }
     }
 
+    private void RespondToThrustInput()
+    {
+        float thrustThisFrame = mainThrust * Time.deltaTime;
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            ApplyThrust(thrustThisFrame);
+        }
+        else if (Input.GetKeyUp(KeyCode.Space))
+        {
+            thrustPS.Stop();
+            sound.Stop();
+        }
+    }
+
+    private void ApplyThrust(float thrustThisFrame)
+    {
+        rb.AddRelativeForce(Vector3.up * thrustThisFrame);
+        //if (!thrustPS.isPlaying)
+        //{
+            thrustPS.Play();
+        //}
+        if (!sound.isPlaying)
+        {
+            sound.PlayOneShot(mainEngine);
+        }
+    }
+
+    private void RespondToRotationInput()
+    {
+
+        float rotationThisFrame = rcsThrust * Time.deltaTime;
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            ApplyRotation(rotationThisFrame);
+        }
+        else
+        if (Input.GetKey(KeyCode.D))
+        {
+            ApplyRotation(-rotationThisFrame);
+        }
+
+        if(Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+        {
+            rb.freezeRotation = false;
+            SetShipConstraints();
+        }
+    }
+
+    private void ApplyRotation(float rotationThisFrame)
+    {
+        rb.freezeRotation = true; //take manual control of rotation
+        transform.Rotate(Vector3.forward * rotationThisFrame);
+    }
 
     void OnCollisionEnter(Collision collision)
     {
@@ -82,79 +135,23 @@ public class Rocket : MonoBehaviour
         Invoke("LoadNextLevel", 1.5f);
     }
 
-    private void StartDeathSequence()
-    {
-        state = State.DYING;
-        explosionPS.Play();
-        sound.Stop();
-        sound.PlayOneShot(deathExplosion);
-        Invoke("RestartFromBegining", 1.5f);
-    }
-
-    private void RestartFromBegining()
-    {
-        SceneManager.LoadScene(0);
-    }
-
     private void LoadNextLevel()
     {
         SceneManager.LoadScene(1); //TODO Allow for more than 2 levels
     }
 
-    private void RespondToThrustInput()
+    private void StartDeathSequence()
     {
-        float thrustThisFrame = mainThrust * Time.deltaTime;
-
-        if (Input.GetKey(KeyCode.Space))
-        {
-            ApplyThrust(thrustThisFrame);
-        }
-        else if (Input.GetKeyUp(KeyCode.Space))
-        {
-            thrustPS.Stop();
-            sound.Stop();
-        }
+        state = State.DYING;
+        Invoke("RestartFromBegining", 1.5f);
+        explosionPS.Play();
+        sound.Stop();
+        sound.PlayOneShot(deathExplosion);
     }
 
-    private void RespondToRotationInput()
+    private void RestartFromBegining()
     {
-
-        float rotationThisFrame = rcsThrust * Time.deltaTime;
-
-        if (Input.GetKey(KeyCode.A))
-        {
-            ApplyRotation(rotationThisFrame);
-        }
-        else
-        if (Input.GetKey(KeyCode.D))
-        {
-            ApplyRotation(-rotationThisFrame);
-        }
-
-        if(Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
-        {
-            rb.freezeRotation = false;
-            SetShipConstraints();
-        }
-    }
-
-    private void ApplyThrust(float thrustThisFrame)
-    {
-        rb.AddRelativeForce(Vector3.up * thrustThisFrame);
-        //if (!thrustPS.isPlaying)
-        //{
-            thrustPS.Play();
-        //}
-        if (!sound.isPlaying)
-        {
-            sound.PlayOneShot(mainEngine);
-        }
-    }
-
-    private void ApplyRotation(float rotationThisFrame)
-    {
-        rb.freezeRotation = true; //take manual control of rotation
-        transform.Rotate(Vector3.forward * rotationThisFrame);
+        SceneManager.LoadScene(0);
     }
 
     private void SetShipConstraints()
