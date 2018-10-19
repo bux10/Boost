@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class Rocket : MonoBehaviour
 {
-
     Rigidbody rb;
     AudioSource sound;
 
@@ -106,14 +105,13 @@ public class Rocket : MonoBehaviour
 
         if(Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
         {
-            rb.freezeRotation = false;
             SetShipConstraints();
         }
     }
 
     private void ApplyRotation(float rotationThisFrame)
     {
-        rb.freezeRotation = true; //take manual control of rotation
+        rb.angularVelocity = Vector3.zero; //remove any residual rotation from physics engine
         transform.Rotate(Vector3.forward * rotationThisFrame);
     }
 
@@ -154,7 +152,10 @@ public class Rocket : MonoBehaviour
 
     private void LoadNextLevel()
     {
-        SceneManager.LoadScene(1); //TODO Allow for more than 2 levels
+        int currentScene = SceneManager.GetActiveScene().buildIndex;
+        int nextScene = currentScene + 1;
+        if (nextScene == SceneManager.sceneCountInBuildSettings) nextScene = 0;  //if on last level go to first level buildIndex 0
+        SceneManager.LoadScene(nextScene);
     }
 
     private void StartDeathSequence()
