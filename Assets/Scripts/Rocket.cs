@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,6 +12,10 @@ public class Rocket : MonoBehaviour
     enum State { ALIVE, DYING, TRANSCENDING, REFUELING, RESCUING };
 
     State state = State.ALIVE;
+
+    bool collisionToggle = true;
+
+    [SerializeField] float levelLoadDelay = 2f;
 
     //Thrust
     [SerializeField, Range(100,300)] float rcsThrust = 100f;
@@ -36,11 +41,24 @@ public class Rocket : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        if(state != State.DYING)
+        if(Debug.isDebugBuild) RespondToDebugKeys(); //Only when debug is on
+
+        if (state != State.DYING)
         {
             RespondToThrustInput();
             RespondToRotationInput();
         }
+    }
+
+    private void RespondToDebugKeys()
+    {
+        if (Input.GetKeyDown(KeyCode.L)) LoadNextLevel();
+        if (Input.GetKeyDown(KeyCode.C)) ToggleCollision();
+    }
+
+    private void ToggleCollision()
+    {
+        collisionToggle = !collisionToggle;
     }
 
     private void RespondToThrustInput()
@@ -101,8 +119,8 @@ public class Rocket : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if(state != State.DYING && state != State.TRANSCENDING)
-        {
+        if (state != State.ALIVE || collisionToggle != true) return;
+
             switch (collision.gameObject.tag)
             {
                 case "Finish":
@@ -123,7 +141,6 @@ public class Rocket : MonoBehaviour
                     StartDeathSequence();
                     break;
             }
-        }
     }
 
     private void StartSuccessSequence()
@@ -132,7 +149,7 @@ public class Rocket : MonoBehaviour
         successPS.Play();
         sound.Stop();
         sound.PlayOneShot(successSound);
-        Invoke("LoadNextLevel", 1.5f);
+        Invoke("LoadNextLevel", levelLoadDelay);
     }
 
     private void LoadNextLevel()
@@ -143,7 +160,7 @@ public class Rocket : MonoBehaviour
     private void StartDeathSequence()
     {
         state = State.DYING;
-        Invoke("RestartFromBegining", 1.5f);
+        Invoke("RestartFromBegining", levelLoadDelay);
         explosionPS.Play();
         sound.Stop();
         sound.PlayOneShot(deathExplosion);

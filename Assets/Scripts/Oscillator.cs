@@ -6,7 +6,7 @@ using UnityEngine;
 public class Oscillator : MonoBehaviour {
 
     [SerializeField] Vector3 movementVector = new Vector3(3f,3f,3f);
-    [Range(2,10), SerializeField] float period = 2;
+    [Range(0,10), SerializeField] float period;
     [Range(0, 1), SerializeField] float movementFactor;
 
     Vector3 startingPos;
@@ -19,6 +19,7 @@ public class Oscillator : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (period <= Mathf.Epsilon) { return; } //Make sure period not zero (mathf.epislon represents smallest float)
 
         float cycles = Time.time / period;
 
@@ -29,6 +30,5 @@ public class Oscillator : MonoBehaviour {
 
         offset = movementVector * movementFactor;
         transform.position = startingPos + offset;
-
     }
 }
