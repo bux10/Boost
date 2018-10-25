@@ -117,7 +117,7 @@ public class Rocket : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (state != State.ALIVE || collisionToggle != true) return;
+        if (state == State.DYING || collisionToggle != true) return;
 
             switch (collision.gameObject.tag)
             {
